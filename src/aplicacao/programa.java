@@ -1,9 +1,12 @@
 package aplicacao;
 
+import tabuleiro.Posição;
+
 public class programa {
 
 	public static void main(String[] args) {
-		System.out.println("Hello Word!");
+		Posição pos = new Posição(3, 5);
+		System.out.println(pos);
 
 	}
 
