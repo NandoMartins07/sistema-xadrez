@@ -1,5 +1,7 @@
 package xadrez;
 
+import tabuleiro.Peça;
+import tabuleiro.Posição;
 import tabuleiro.Tabuleiro;
 import xadrez.peças.Rei;
 import xadrez.peças.Torre;
@@ -21,6 +23,27 @@ public class PartidaXadrez {
 			}
 		}
 		return mat;
+	}
+	
+	public PeçaXadrez executarMovXadrez(XadrezPosição origemPosição, XadrezPosição destinoPosição) {
+		Posição origem = origemPosição.toPosição();
+		Posição destino = destinoPosição.toPosição();
+		validarOrigemPosição(origem);
+		Peça capituraPeça = fazerMover(origem, destino);
+		return (PeçaXadrez)capituraPeça;
+	}
+	
+	private Peça fazerMover(Posição origem, Posição destino) {
+		Peça p = tabuleiro.removerPeça(origem);
+		Peça capituraPeça = tabuleiro.removerPeça(destino);
+		tabuleiro.colocarPeça(p, destino);
+		return capituraPeça;
+	}
+	
+	private void validarOrigemPosição(Posição posição) {
+		if (!tabuleiro.peçaExistente(posição)) {
+			throw new XadrezExceção("Não existe peça na posição de origem");
+		}
 	}
 	
 	private void colocarNovaPeça(char coluna, int linha, PeçaXadrez peça) {
